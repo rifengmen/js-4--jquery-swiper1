@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>事件流、事件处理模型</title>
+    <style>
+
+        .box {
+            width: 100px;
+            height: 100px;
+            background: #000;
+        }
+        .wrapper {
+            width: 500px;
+            height: 500px;
+            background: #000;
+        }
+        .content {
+            width: 200px;
+            height: 200px;
+            background: #555;
+        }
+        .inner {
+            width: 100px;
+            height: 100px;
+            background: #999;
+        }
+        li {
+            cursor: pointer;
+        }
+
+    </style>
+</head>
+<body>
+
+<div class="box"></div>
+<div class="wrapper">
+    <div class="content">
+        <div class="inner"></div>
+    </div>
+</div>
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+<a href="javascript:void (false);">点击我</a>
+<ul>
+    <li>点我啊0001</li>
+    <li>点我啊0002</li>
+    <li>点我啊0003</li>
+    <li>点我啊0004</li>
+    <li>点我啊0005</li>
+    <li>点我啊0006</li>
+    <li>点我啊0007</li>
+    <li>点我啊0008</li>
+    <li>点我啊0009</li>
+    <li>点我啊0010</li>
+</ul>
+<input type="text" placeholder="你好啊">
+</body>
+</html>
+
+<script>
+
+    // let box = document.querySelector(".box");
+    // box.onclick = function () {
+    //     // this--谁触发该事件，谁就是this
+    //     this.style.background = "pink";
+    // }
+
+
+    // 事件流/事件处理模型---事件执行的顺序
+
+    let wrapper = document.querySelector(".wrapper");
+    let content = document.querySelector(".content");
+    let inner = document.querySelector(".inner");
+    // 1.冒泡型：在布局上存在父子级关系的元素，事件执行时是按照从内向外的顺序执行，自底向上---false
+    // 2.捕获型：在布局上存在父子级关系的元素，事件执行时是按照从外向内的顺序执行，自顶向下---true
+    // 3.同一事件源的事件：先捕获（再自己的事件）后冒泡
+    // 4.阻止冒泡（只区别于浏览器，现在用“e.stopPropagation();”，这是标准语法）
+    //  4.1在函数里添加“e.cancelBubble = true;”可以取消冒泡
+    //  4.2在函数里添加"e.stopPropagation();"可以取消冒泡
+    // 5.浏览器默认行为：右键出菜单、a跳转
+    //   阻止浏览器的默认行为："e.preventDefault();"
+    //   阻止a链接的默认行为： href="javascript:void (false);
+
+
+
+    // wrapper.onclick = function () {
+    //     console.log("wrapper");
+    // };
+    // content.onclick = function () {
+    //     console.log("content");
+    // };
+    // inner.onclick = function () {
+    //     console.log("inner");
+    // }
+
+    // wrapper.addEventListener("click",function (e) {
+    //     // e.cancelBubble = true;
+    //     e.stopPropagation();
+    //     console.log("wrapper");
+    // },false);
+    // content.addEventListener("click",function (e) {
+    //     // e.cancelBubble = true;
+    //     e.stopPropagation();
+    //     console.log("content");
+    // },false);
+    // inner.addEventListener("click",function (e) {
+    //     // e.cancelBubble = true;
+    //     e.stopPropagation();
+    //     console.log("inner");
+    // },false);
+
+
+
+    // wrapper.addEventListener("click",function (e) {
+    //     console.log("wrapper-true");
+    // },true);
+    // content.addEventListener("click",function (e) {
+    //     console.log("content-true");
+    // },true);
+    // inner.addEventListener("click",function (e) {
+    //     console.log("inner-true");
+    // },true);
+
+
+    // 6.事件委派
+    //      优点：提高性能：不需要循环的给元素添加事件
+    //            灵活：当有新的子元素时不需要重新获取
+    // 循环的方法，运算次数多，运行慢
+    // let lis = document.querySelectorAll("li");
+    // lis.forEach((val) => {
+    //     val.onclick = function () {
+    //         console.log(val.innerHTML);
+    //     }
+    // })
+    // 新方法：事件委派
+    // let ul = document.querySelector("ul");
+    // ul.onclick = function (e) {
+    //     console.log(e.target.innerHTML);
+    // }
+    // let li = document.createElement("li");
+    // li.innerHTML = 11;
+    // ul.appendChild(li);
+
+
+    // 7.事件分类
+    // 7.1鼠标事件--click/mouseover/mousedown/mouseout/mouseenter/mouseleave/mouseup/mousemove/dblclick/contextmenu
+    // wrapper.onclick = function () {
+    //     console.log(1);
+    // };
+    // wrapper.onmousedown = function () {
+    //     console.log(2);
+    // };
+    // wrapper.onmouseup = function () {
+    //     console.log(3);
+    // }
+    // click = mousedown + mouseup
+    // 通过两次点击之间的时间间隔，可以判断是双击还是单击
+    // contextmenu--右键出菜单事件，浏览器默认行为---阻止e.preventDefault();
+    // 移动端事件--touchstart/touchmove/touchend
+    // wrapper.onmousedown = function (e) {
+    //     if (e.button === 0) {
+    //         console.log("左键");
+    //     }
+    //     else if (e.button === 1) {
+    //         console.log("中键");
+    //     }
+    //     else if (e.button === 2) {
+    //         console.log("右键");
+    //     }
+    // }
+
+
+    // 7.2键盘事件--keydown/keyup/keypress
+    // document.onkeydown = function (event) {
+    //     console.log(event);
+    // }
+    // document.onkeypress = function (event) {
+    //     console.log(event);
+    // }
+    // onkeydown:识读键盘上的所有按键
+    // onkeypress：识读字符类
+
+
+    // 7.3表单事件--submit/change/focus/blur/reset/input
+    // input:监测输入的过程
+    // change:监测获得焦点和失去焦点的时候内容有没有发生变化，发生变化才会执行
+    // let inputs = document.querySelector("input");
+    // inputs.oninput = function () {
+    //     console.log(this.value);
+    // }
+    // inputs.onchange = function () {
+    //     console.log(this.value);
+    // }
+
+
+    // 7.4窗口事件--load/resize/scroll
+    // load:页面完全加载完成后才能执行，适用于小型的文件；大型的还是要把script标签对放在文档最后
+    // window.onload = function () {
+    //
+    // }
+
+</script>

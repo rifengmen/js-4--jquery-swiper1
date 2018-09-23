@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>jquery-选择器</title>
+
+    <style>
+
+        .box {
+            width: 100px;
+            height: 100px;
+            background: red;
+        }
+        .text {
+            font-size: 20px;
+        }
+        .div2 {
+            width: 100px;
+            height: 100px;
+            background: green;
+            position: absolute;
+            left: 200px;
+            top: 0px;
+        }
+        .focused {
+            background: #abcdef;
+        }
+    </style>
+</head>
+<body>
+<div class="box">123456</div>
+<p>这是一个段落</p>
+<span class="text">123</span>
+<span class="text">26562</span>
+<form>
+    <label for="name">name</label>
+    <input type="text" name="name" id="name" value="1">
+    <fieldset>
+        <label for="newsleetter">Newsletter</label>
+        <input type="text" name="newsletter" id="newsleetter" value="2">
+    </fieldset>
+</form>
+<input type="text" name="none" value="3">
+<ul>
+    <li>list item 1</li>
+    <li>list item 2</li>
+    <li>list item 3</li>
+    <li>list item 4</li>
+    <li>list item 5</li>
+</ul>
+<p></p>
+<h1>Header 1</h1>
+<p></p>
+<p>Contents 1</p>
+<p></p>
+<h2>Header 2</h2>
+<p>Contents 2</p>
+<button id="run">Run</button>
+<div class="div2"></div>
+<div id="content">
+    <input tabIndex="1">
+    <input tabIndex="2">
+    <select tabIndex="3">
+        <option>select menu</option>
+    </select>
+    <div tabIndex="4">
+        a div
+    </div>
+</div>
+<form>
+    <input type="text" name="email" />
+    <input type="hidden" name="id" />
+</form>
+<table>
+    <tr style="display:none"><td>Value 1</td></tr>
+    <tr><td>Value 2</td></tr>
+</table>
+</body>
+</html>
+
+<script src="./js/jquery-3.3.1.min.js"></script>
+<script>
+    // // 原生js写法
+    // let box = document.querySelector(".box");
+    // box.ondblclick = function () {
+    //     this.style.background = "yellow";
+    // };
+
+
+    // // jquery写法
+    // let box = $(".box");
+    // box.click = function () {
+    //     box.css("background:yellow");
+    // }
+
+
+    // $("选择器"、"函数"、"变量") -- $ === jquery
+    // $(callback) => 括号内为回调函数，当页面加载完成的时候要执行的操作（相当于window.onload）
+    $(function () {
+
+        // // 1.基本选择器
+        // let box = $(".box")
+        // box.css({"background":"yellow"});
+
+        // let p = $("p");
+        // p.css({"color":"red"});
+
+        // let text = $(".text");
+        // text.css({"font-siae":"40px"});
+
+        // let all = $("*");
+        // all.css({"padding":"10px"});
+
+        //   // 群组选择器
+        // let group = $("div,span,p");
+        // group.css({"background":"pink"});
+
+
+        // 2.层级选择器
+        // let ele = $("form label"); // 找到 form 中所有的 label 元素
+
+        // let ele = $("form>input"); // 匹配 form 中所有的子级 input 元素
+
+        // let ele = $("label+input"); // 匹配所有紧接在 label 元素后的 input 元素
+
+        // let ele = $("form~input");  // 匹配所有与 form 同辈的 input 元素
+
+
+        // 3.基本筛选器
+        // let li = $("li:first");
+
+        // let li = $("li:last");
+
+        // let li = $("li:not(:checked)") // 一般不用
+
+        // let li = $("li:even"); // 选中偶数行，从0开始，视觉上为奇数
+
+        // let li = $("li:odd"); // 选中奇数行，从0开始，视觉上为偶数
+
+        // let li = $("li:eq(2)"); // 匹配一个给定索引值的元素，从 0 开始计数
+
+        // let li = $("li:gt(1)") // 匹配所有大于给定索引值的元素,从 0 开始计数
+
+        // let li = $("li:lt(2)");// 匹配所有小于给定索引值的元素,从 0 开始计数
+
+        // let header = $(":header"); // 匹配如 h1, h2, h3之类的标题元素
+
+        // // (:animated)匹配所有正在执行动画效果的元素,
+        // $("#run").click(function(){
+        //     $(".div2:not(:animated)").animate({ left: "+=20" }, 1000);
+        // }); // 只有对不在执行动画效果的元素执行一个动画特效
+
+        // (":focus") 匹配当前获取焦点的元素，添加一个"focused"的类名给那些有focus方法的元素
+        // $( "#content" ).delegate( "*", "focus blur", function( event ) {
+        //     var elem = $( this );
+        //     setTimeout(function() {
+        //         elem.toggleClass( "focused", elem.is( ":focus" ) );
+        //     }, 0);
+        // });
+
+        // $(":root") 选择该文档的根元素，在HTML中，文档的根元素，永远是<html>元素。
+        // $(":root").css("background-color","yellow");
+
+        // target
+
+
+        // 4.内容选择器
+        // let ele = $("li:contains('5')"); // 匹配包含给定文本的元素
+
+        // let ele = $("p:empty"); // 匹配所有不包含子元素或者文本的空元素
+
+        // let ele = $("p:parent"); // 匹配含有子元素或者文本的元素
+
+
+        // 5.可见选择器
+        // let hidden = $("tr:hidden"); // 匹配所有不可见元素，或者type为hidden的元素,查找隐藏的 tr
+
+        // let visible = $("tr:visible") // 匹配所有的可见元素,查找所有可见的 tr 元素
+
+
+        // 6.属性选择器 -- 同css
+
+
+        // 7.子元素 -- 同css
+
+
+        // 8.表单和表单对象，通过type类型选择
+
+    })
+</script>

@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>日期对象</title>
+    <style>
+        b {
+            font-size: 40px;
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <span></span>年
+        <span></span>月
+        <span></span>日
+        星期<span></span>
+        <span></span>时
+        <span></span>分
+        <span></span>秒
+    </div>
+    <b>59</b>分<b>59</b>秒
+</body>
+</html>
+
+<script>
+    // js的内置对象     Array     function     String     Date
+    let spans = document.querySelectorAll("span");
+    // 获取当前时间
+    let date = new Date();
+    // getDate()：获取一个月中的某一天（1-31）
+    let days = date.getDate();
+    spans[2].innerHTML = days;
+    // getDay()：获取一周中的某一天（0-6）
+    let day2 = date.getDay();
+    spans[3].innerHTML = day2;
+    // getMonth()：获取一年中的某一月(0-11);
+    let months = date.getMonth();
+    spans[1].innerHTML = months+1;
+    // date.getFullYear()：以四位数字返回年份
+    let years = date.getFullYear();
+    spans[0].innerHTML = years;
+    // hours = date.getHours()：获取小时（0-23）
+    let hours = date.getHours();
+    spans[4].innerHTML = hours;
+    // minutes = date.getMinutes()：获取分钟（0-59）
+    let minutes = date.getMinutes();
+    spans[5].innerHTML = minutes;
+    // seconds = date.getSeconds()：获取秒（0-59）
+    let seconds = date.getSeconds();
+    spans[6].innerHTML = seconds;
+
+
+    // getTime()：时间戳，获取指定时间“1970年”至今的毫秒数
+    let miao = date.getTime(1970);
+
+
+    // 年  月  日  时  分  秒  毫秒
+
+    // 时间换算：getTime()/1000second/60minute/60hour/24day/30month/12year
+
+
+    let dates = new Date();
+    // dates.setFullYear(2018);
+    // dates.setMinutes(9);
+    // dates.setDate(1);
+    // dates.setHours(0);
+    // dates.setMinutes(0);
+    // dates.setSeconds(0);
+
+
+    // dates.setFullYear(2018,9,1);
+    // dates.setHours(0,0,0,0)
+    // let seconds1 = dates.getTime()-date.getTime();
+    // seconds = parseInt(seconds1/1000);
+    // minutes = parseInt(seconds1/1000/60);
+    // hours = parseInt(seconds1/1000/60/60);
+    // days = parseInt(seconds1/1000/60/60/24);
+    // months = parseInt(seconds1/1000/60/60/24/12);
+
+
+    let b = document.querySelectorAll("b");
+    let miao1 = Number(b[1].innerHTML);
+    let fen = Number(b[0].innerHTML);
+
+    let t = setInterval(function () {
+        miao1--;
+        b[1].innerHTML = miao1;
+        if (miao1 === -1) {
+            fen--;
+            miao1 = 59;
+            b[0].innerHTML = fen;
+            b[1].innerHTML = miao1;
+        }
+        if (fen === 0 && miao1 === 0) {
+            clearInterval(t);
+        }
+    },1000);
+
+
+
+
+
+
+
+
+</script>

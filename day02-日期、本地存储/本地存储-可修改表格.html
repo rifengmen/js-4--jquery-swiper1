@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>本地存储-可修改表格</title>
+</head>
+<body>
+
+    <table border="1" cellpadding="0" align="center">
+        <thead>
+            <caption>WUIF1807-2学生信息表</caption>
+        </thead>
+        <tbody>
+            <tr>
+                <!-- contenteditable  内容可编辑-->
+                <td contenteditable="true">序号</td>
+                <td>姓名</td>
+                <td>性别</td>
+                <td>联系方式</td>
+                <td>备注</td>
+            </tr>
+        </tbody>
+    </table>
+    <button style="margin: 0 auto;">添加</button>
+</body>
+</html>
+
+<script>
+
+    let tbody = document.querySelector("tbody");
+    let btn = document.querySelector("button");
+    // 1.模拟数据
+    let date = [
+        {id:0,name:"门日峰1",sex:"男",phone:18735605086},
+        {id:1,name:"门日峰2",sex:"男",phone:18735605086},
+        {id:2,name:"门日峰3",sex:"男",phone:18735605086},
+        {id:3,name:"门日峰4",sex:"男",phone:18735605086},
+        {id:4,name:"门日峰5",sex:"男",phone:18735605086},
+    ];
+    // 2.存储数据
+    if (!localStorage.getItem("studentInfo2")) {
+        localStorage.setItem("studentInfo2",JSON.stringify(date));
+    }
+    // 3.取数据
+    date = JSON.parse(localStorage.getItem("studentInfo2"));
+    date.forEach(val => {
+        createCon(val);
+    });
+    // 4.数据渲染
+    // 将模拟数据添加到页面中
+    function createCon(val) {
+        let str = `<tr id="${val.id}">
+                        <td type="id">${val.id}</td>
+                        <td type="name">${val.name}</td>
+                        <td type="sex">${val.sex}</td>
+                        <td type="phone">${val.phone}</td>
+                        <td class="del">del</td>
+                    </tr>`
+        tbody.innerHTML += str;
+    }
+    // 5.数据操作 --- 增
+    btn.onclick = function () {
+        // 页面中添加
+        // 设置一个默认添加样式
+        let obj = {id:0,name:"门日峰5",sex:"男",phone:18735605086};
+        // 设置新添加的内容序号
+        if (date.length === 0) {
+            obj.id = 0;
+        }
+        else {
+            obj.id = date[date.length-1].id+1;
+        }
+        // 添加到页面中
+        createCon(obj);
+        // 添加到localStorage中
+        date.push(obj);
+        localStorage.setItem("studentInfo2",JSON.stringify(date));
+    }
+    // 6.数据修改删除
+    // 事件委派 --- 点击某个td，给tbody添加内容
+    // 双击某个单元格
+    tbody.ondblclick = function (e) {
+        // 获取点击的位置
+        let ele = e.target;
+        // 如果点击的是不含del的td
+        if (ele.nodeName == "TD" && !ele.classList.contains("del")) {
+            // 获取所点击位置的父元素名字（知道它在哪一行），以便后台存储时定位
+            let ids = ele.parentNode.id;
+            // 获取所修改元素的位置在父元素中的位置（知道它在那一列），以便后台存储时定位
+            let type = ele.getAttribute("type");
+            // 获取点击位置当前显示内容
+            let oldval = ele.innerHTML;
+            // 声明一个新变量以便接收修改后的input里的value值
+            let newval;
+            // 清空点击位置内容
+            ele.innerHTML = "";
+            // 设置变量，添加input框，以能够修改内容
+            let inputs = document.createElement("input");
+            // 给点击位置添加一个input标签
+            ele.appendChild(inputs);
+            // 将获取的当前内容放在input标签中显示
+            inputs.value = oldval;
+            // 失去焦点时
+            inputs.onblur = function() {
+                // 获取修改后的新内容
+                newval = inputs.value;
+                // 移除input框
+                ele.removeChild(inputs);
+                // 将新内容写入页面中
+                ele.innerHTML = newval;
+                // 将新内容存储在后台对应的位置
+                let values = date.filter(v => v.id == ids);
+                values[0][type] = newval;
+                // 将新修改后的内容存储到localStorage中
+                localStorage.setItem("studentInfo2",JSON.stringify(date));
+            }
+        }
+        // 删除行
+        else if (ele.nodeName == "TD" && ele.classList.contains("del")) {
+            // 获取点击位置所在的行
+            let ids = ele.parentNode.id;
+            // 从页面中移除
+            tbody.removeChild(ele.parentNode)
+            // 修改date内容
+            date = date.filter(v => v.id != ids);
+            // 存储到localStorage中
+            localStorage.setItem("studentInfo2",JSON.stringify(date));
+        }
+    }
+
+
+
+
+
+
+</script>

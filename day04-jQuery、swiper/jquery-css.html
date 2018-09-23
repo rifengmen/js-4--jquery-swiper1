@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>jquery-css</title>
+    <style>
+
+        p {
+            width: 100px;
+            height: 200px;
+            background: red;
+        }
+
+    </style>
+</head>
+<body>
+
+<p>你好</p>
+<p>Hello</p>
+
+</body>
+</html>
+
+<script>
+
+    // 1.获取、设置样式
+    // .css()
+    // 取得第一个段落的color样式属性的值。
+    // $("p").css("color");
+    // 将所有段落的字体颜色设为红色并且背景为蓝色。
+    // $("p").css({ "color": "#ff0011", "background": "blue" });
+    // 逐渐增加div的大小
+    // $("div").click(function() {
+    //     $(this).css({
+    //         width: function(index, value) {
+    //             return parseFloat(value) * 1.2;
+    //         },
+    //         height: function(index, value) {
+    //             return parseFloat(value) * 1.2;
+    //         }
+    //     });
+    // });
+
+
+    // 2.获取、设置位置
+    // 元素p距离视口的距离,后跟具体的方向，顶部或者左边;也可以添加具体数值去设定
+    // $("p").offset();
+
+    // 获取匹配元素p相对父元素的距离，
+    // $("p").position();
+
+
+    // 3.获取、设置尺寸
+    // $("p").scrollTop() 获取匹配元素p相对应滚动条距离顶部的距离。
+
+    // $("p").height()/.width() 获取匹配元素p当前的高/宽度值
+
+    // 获取匹配元素p内部区域的高度/宽度，含padding，不包含margin和border，
+    // $("p").innerHeight()/.innerWidth()
+
+    // 获取匹配元素p外部区域的高度/宽度,包含padding、margin和border
+    // $("p").outerHeight()/.outerWidth()
+
+</script>

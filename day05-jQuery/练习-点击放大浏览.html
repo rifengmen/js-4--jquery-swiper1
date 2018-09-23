@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>练习-点击放大浏览</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            border: 0;
+            box-sizing: border-box;
+            list-style: none;
+        }
+        body {
+            width: 100%;
+            height: 100%;
+        }
+        ul {
+            width: 1200px;
+            height: 600px;
+            margin: 20px auto;
+            border: 1px solid #000000;
+        }
+        ul li {
+            width: 375px;
+            height: 230px;
+            background: red;
+            float: left;
+            margin: 10px;
+        }
+        ul li img {
+            display: block;
+            width: 100%;
+            height: 100%;
+        }
+        .mask {
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.3);
+            position: absolute;
+            top: 0;
+            left: 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transform: scale(0,0);
+            transition: all 1s;
+        }
+        .mask.active {
+            transform: scale(1,1);
+        }
+        /*body:hover .mask {*/
+            /*transform: scale(1,1);*/
+        /*}*/
+        .mask .bigImg {
+            width: 800px;
+            height: 550px;
+        }
+        a[class ^= "btn"] {
+            text-decoration: none;
+            color: #333;
+            display: block;
+            font-size: 28px;
+            width: 50px;
+            height: 80px;
+            background: blue;
+        }
+
+    </style>
+
+</head>
+<body>
+
+<ul>
+    <li><img src="./img/mlsp2.png" alt=""></li>
+    <li><img src="./img/mlsp3.png" alt=""></li>
+    <li><img src="./img/mlsp4.png" alt=""></li>
+    <li><img src="./img/mlt1.png" alt=""></li>
+    <li><img src="./img/mlt2.jpg" alt=""></li>
+    <li><img src="./img/mlt3.jpg" alt=""></li>
+</ul>
+<div class="mask">
+    <a href="javascript:void(false)" class="btnl"></a>
+    <img src="./img/mlba5.png" alt="" class="bigImg">
+    <a href="javascript:void(false)" class="btnr"></a>
+</div>
+
+</body>
+</html>
+
+<script src="./js/jquery-3.3.1.min.js"></script>
+<script>
+
+$(function () {
+    $("li").click(function () {
+        let src1 = $(this).children("img").attr("src");
+        $(".mask").addClass("active");
+        $(".bigImg").attr("src",src1);
+    });
+    $(".mask").click(function () {
+        $(this).removeClass("active");
+    });
+    let index = 0;
+    $(".btnr").click(function (e) {
+        e.stopPropagation();
+        index++;
+        if (index == $("li").length) {
+            index = 0;
+        }
+        let src2 = $("li").eq(index).children("img").attr("src");
+        $(".bigImg").attr("src",src2);
+    })
+})
+
+</script>

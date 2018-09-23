@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>本地存储</title>
+</head>
+<body>
+
+该用户的姓名是：<p></p>
+
+</body>
+</html>
+
+<script>
+
+    // H5之前使用
+    // cookis -- 容量小，只有4KB左右，每次访问服务器会携带，不安全，可以设置有效时间
+
+
+    // H5之后使用
+    // localStorage -- 本地存储  长期有效
+    // sessionStorage -- 会话存储  关闭窗口自动销毁
+
+
+    // key  value   键值对  值只接受字符串型，非字符串型的用JSON.stringify(obj)转化为字符串
+    // 设置  setItem("键","值");
+    // 获取  getItem("键");
+    // 移除  removeItem("键");
+
+    // json --> 字符串  JSON.stringify(obj); json格式的数据要存储到本地时需要先转化为字符串
+    // 字符串 --> json JSON.pare(str);  字符串也可以转化为json格式
+    localStorage.setItem("name","zhangsan")
+    let name = localStorage.getItem("name");
+    document.querySelector("p").innerHTML = name;
+
+
+</script>
