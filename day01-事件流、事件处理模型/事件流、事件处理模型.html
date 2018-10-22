@@ -76,9 +76,10 @@
     // 3.同一事件源的事件：先捕获（再自己的事件）后冒泡
     // 4.阻止冒泡（只区别于浏览器，现在用“e.stopPropagation();”，这是标准语法）
     //  4.1在函数里添加“e.cancelBubble = true;”可以取消冒泡
-    //  4.2在函数里添加"e.stopPropagation();"可以取消冒泡
+    //  4.2在函数里添加"e.stopPropagation();"可以取消冒泡 用来阻止事件流
+    //     e代表事件对象，用来记录事件触发时的一些信息；
     // 5.浏览器默认行为：右键出菜单、a跳转
-    //   阻止浏览器的默认行为："e.preventDefault();"
+    //   阻止浏览器的默认行为："e.preventDefault();"或者函数后面加上“return false”；
     //   阻止a链接的默认行为： href="javascript:void (false);
 
 
